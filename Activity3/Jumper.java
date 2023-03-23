@@ -28,13 +28,11 @@ public class Jumper extends Bug{
 		
 		Location currentLoc = getLocation();
 		Location next = getLocation().getAdjacentLocation(getDirection()).getAdjacentLocation(getDirection());
-		List<Location> possibleMoves = grid.getEmptyAdjacentLocations(getLocation().getAdjacentLocation(getDirection()));
-		boolean canMove = false;
-		for (Location loc: possibleMoves){
-			if (loc.equals(next))
-				canMove = true;
-		}
-		if (grid.isValid(next) && canMove){
+		
+		if (grid.isValid(next) && 
+			(grid.get(next) == null || grid.get(next) instanceof Blossom || 
+			grid.get(next) instanceof Flower)){
+				
 			moveTo(next);
 			
 			Blossom flower = new Blossom();
