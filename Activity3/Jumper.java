@@ -13,7 +13,6 @@ import java.awt.Color;
 
 public class Jumper extends Bug{
 
-    private int turns;
     /**
      * Constructs a box bug that traces a square of a given side length
      * @param length the side length
