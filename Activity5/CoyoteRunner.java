@@ -10,7 +10,8 @@ public class CoyoteRunner{
         
         world.add(new Location(2,2),new Coyote());
         world.add(new Location(5,5),new Coyote());
-        
+        // world.add(new Location(4,2),new Coyote());
+        // world.add(new Location(5,6),new Coyote());
         world.show();
 	}
 }

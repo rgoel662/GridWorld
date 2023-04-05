@@ -38,14 +38,13 @@ public class Coyote extends Critter{
 		if (actors.isEmpty())
 			return;
 		
-		if (actors.get(0) instanceof Boulder && steps < 5){
+		if (actors.get(0) instanceof Boulder && steps < 6){
 			exploded = true;
 		}
 	}
 	
 	public ArrayList<Location> getMoveLocations(){
 		ArrayList<Location> locs = new ArrayList<>();
-		System.out.println(sleep);
 		if (sleep == 0){
 			if (steps == 5){
 				sleep = 1;
@@ -78,11 +77,12 @@ public class Coyote extends Critter{
 			return getLocation();
 		else if (sleep > 0){
 			sleep = 0;
-			steps = 0;
+			steps = 1;
 			
 			if (!hitWall){
 				int locNum1 = (int)(Math.random() * locs.size());
-				getGrid().put(locs.get(locNum1), new Stone());
+				Stone stone = new Stone();
+				stone.putSelfInGrid(getGrid(), locs.get(locNum1));
 			}
 			hitWall = false;
 			
@@ -95,9 +95,9 @@ public class Coyote extends Critter{
 	}
 	
 	public void makeMove(Location loc){
-		System.out.println(loc);
 		if(exploded){
-			getGrid().put(getLocation().getAdjacentLocation(getDirection()), new Kaboom());
+			Kaboom kaboom = new Kaboom();
+			kaboom.putSelfInGrid(getGrid(), getLocation().getAdjacentLocation(getDirection()));
 			removeSelfFromGrid();
 			return;
 		}
