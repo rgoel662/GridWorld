@@ -42,9 +42,9 @@ public class Coyote extends Critter{
 	 */
 	public ArrayList<Actor> getActors(){
 		ArrayList<Actor> actors = new ArrayList<>();
-		if (getGrid().isValid(getLocation().getAdjacentLocation(getDirection())) && 
-			getGrid().get(getLocation().getAdjacentLocation(getDirection())) instanceof Actor)
-			actors.add(getGrid().get(getLocation().getAdjacentLocation(getDirection())));
+		if (getGrid().isValid(getLocation().getAdjacentLocation(dir)) && 
+			getGrid().get(getLocation().getAdjacentLocation(dir)) instanceof Actor)
+			actors.add(getGrid().get(getLocation().getAdjacentLocation(dir)));
 		return actors;
 	}
 	
@@ -76,16 +76,16 @@ public class Coyote extends Critter{
 			if (steps == 5){
 				sleep = 1;
 				locs.add(getLocation());
-			} else if (!getGrid().isValid(getLocation().getAdjacentLocation(getDirection()))){
+			} else if (!getGrid().isValid(getLocation().getAdjacentLocation(dir))){
 				sleep = 1;
 				locs.add(getLocation());
 				hasHitWall = true;
-			} else if (getGrid().get(getLocation().getAdjacentLocation(getDirection())) instanceof Actor){
+			} else if (getGrid().get(getLocation().getAdjacentLocation(dir)) instanceof Actor){
 				sleep = 1;
 				locs.add(getLocation());
 			} else {
 				steps ++;
-				locs.add(getLocation().getAdjacentLocation(getDirection()));
+				locs.add(getLocation().getAdjacentLocation(dir));
 			}
 		} else {
 			if (sleep < 6){
@@ -123,23 +123,24 @@ public class Coyote extends Critter{
 			hasHitWall = false;
 			
 			int locNum = (int)(Math.random() * locs.size());
-			setDirection(getLocation().getDirectionToward(locs.get(locNum)));
+			dir = getLocation().getDirectionToward(locs.get(locNum));
 			return locs.get(locNum);
 		} else {
-			return getLocation().getAdjacentLocation(getDirection());
+			return getLocation().getAdjacentLocation(dir);
 		}
 	}
 	
 	/**
 	 * Actually moves. If the coyote has exploded, it removes itself from
 	 * the grid
+	 * Also sets the direction of the actor
 	 * 
 	 * @param loc 	The location to move
 	 */
 	public void makeMove(Location loc){
 		if(hasExploded){
 			Kaboom kaboom = new Kaboom();
-			kaboom.putSelfInGrid(getGrid(), getLocation().getAdjacentLocation(getDirection()));
+			kaboom.putSelfInGrid(getGrid(), getLocation().getAdjacentLocation(dir));
 			removeSelfFromGrid();
 			return;
 		}
