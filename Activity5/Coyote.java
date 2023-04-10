@@ -27,6 +27,7 @@ public class Coyote extends Critter{
 		int randomNum = (int)(Math.random() * 8);
 		
 		dir = dirs[randomNum]; //sets a random direction
+		setDirection(dir + Location.LEFT);
 		setColor(null);
 		
 		steps = 0;
@@ -124,6 +125,7 @@ public class Coyote extends Critter{
 			
 			int locNum = (int)(Math.random() * locs.size());
 			dir = getLocation().getDirectionToward(locs.get(locNum));
+			setDirection(dir + Location.LEFT);
 			return locs.get(locNum);
 		} else {
 			return getLocation().getAdjacentLocation(dir);
