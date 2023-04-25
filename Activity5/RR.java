@@ -145,7 +145,6 @@ public class RR extends Critter{
      * @param loc   The location to move to
      */
     public void makeMove(Location loc){
-        System.out.println(loc);
         if(hasExploded){
 			Kaboom kaboom = new Kaboom();
 			kaboom.putSelfInGrid(getGrid(), loc);

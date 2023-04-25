@@ -110,6 +110,8 @@ public class Coyote extends Critter{
 	 * @return		The location to move
 	 */
 	public Location selectMoveLocation(ArrayList<Location> locs){
+		if (locs.isEmpty())
+			return getLocation();
 		if (sleep > 0 && sleep < 6)
 			return getLocation();
 		else if (sleep > 0){
